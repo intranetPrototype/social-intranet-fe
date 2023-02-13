@@ -6,6 +6,7 @@
     "start": "ng serve",
     "gen:api": "ng-openapi-gen",
     "build": "ng build",
+    "build:prod": "ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
