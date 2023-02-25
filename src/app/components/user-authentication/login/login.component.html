@@ -1,0 +1,35 @@
+<div class="login-container" *ngrxLet="error$; let error">
+  <div class="login-form-container">
+    <div class="login-form-container-header">
+      <h3>Bitte melden Sie sich an oder registrieren Sie sich.</h3>
+      <h1>Anmeldung</h1>
+    </div>
+
+    <form [formGroup]="loginForm">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="emailFormControl.hasError('required')">Bitte geben Sie Ihre E-Mail an.</mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('email')">
+          Bitte geben Sie Ihre E-Mail im richtigen Format an.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Passwort</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error *ngIf="passwordFormControl.hasError('required')">Bitte geben Sie ein Passwort an.</mat-error>
+      </mat-form-field>
+
+      <mat-error *ngIf="error">{{ error.error.message }}</mat-error>
+    </form>
+
+    <div class="login-form-container-footer">
+      <ng-container>
+        <button mat-flat-button [routerLink]="['/registration']">Konto erstellen</button>
+        <button mat-flat-button [routerLink]="['/forgot-password']">Passwort vergessen</button>
+      </ng-container>
+      <button mat-flat-button color="primary" (click)="signin()" [disabled]="loginForm.invalid">Login</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="registration-container" *ngrxLet="error$; let error">
+  <div class="registration-form-container">
+    <div class="registration-form-container-header">
+      <h3>Bitte füllen Sie alle notwendigen Felder aus.</h3>
+      <h1>Registrierung</h1>
+    </div>
+
+    <form [formGroup]="registrationForm">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="emailControl.hasError('required')">Bitte geben Sie eine E-Mail an.</mat-error>
+        <mat-error *ngIf="emailControl.hasError('email')">Geben Sie eine gültige E-Mail Adresse ein.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email wiederholen</mat-label>
+        <input matInput formControlName="emailRepeat">
+        <mat-error *ngIf="emailRepeatControl.hasError('required')">Bitte geben Sie eine E-Mail an.</mat-error>
+        <mat-error *ngIf="emailRepeatControl.hasError('email')">Geben Sie eine gültige E-Mail Adresse ein.</mat-error>
+        <mat-error *ngIf="isInvalidEmailRepeat">
+          Bitte geben Sie die gleiche E-Mail an.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Passwort</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error *ngIf="passwordControl.hasError('required')">Bitte geben Sie ein Passwort an.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Passwort wiederholen</mat-label>
+        <input matInput type="password" formControlName="passwordRepeat">
+        <mat-error *ngIf="passwordRepeatControl.hasError('required')">Bitte geben Sie ein Passwort an.</mat-error>
+        <mat-error *ngIf="registrationForm.hasError('invalidPasswordRepeat')">
+          Bitte geben Sie das gleiche Passwort ein.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Vorname</mat-label>
+        <input matInput formControlName="firstName">
+        <mat-error *ngIf="firstNameControl.hasError('required')">Bitte geben Sie Ihren Vornamen an.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Nachname</mat-label>
+        <input matInput formControlName="lastName">
+        <mat-error *ngIf="lastNameControl.hasError('required')">Bitte geben Sie Ihren Nachname an.</mat-error>
+      </mat-form-field>
+
+      <mat-error *ngIf="error">{{ error.error.message }}</mat-error>
+    </form>
+
+    <div class="registration-form-container-footer">
+      <button mat-flat-button [routerLink]="['/login']">Zurück</button>
+      <button mat-flat-button color="primary" [disabled]="registrationForm.invalid" (click)="signup()">
+        Registrieren
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.confirm-registration-default-container {
+  &-header {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    h3 {
+      color: lightgray;
+    }
+  }
+
+  &-error {
+    text-align: center;
+  }
+
+  .resend-confirm-registration-form {
+    mat-form-field {
+      width: 100%;
+    }
+
+    &-submit {
+      color: green;
+    }
+
+    &-footer {
+      display: flex;
+      justify-content: end;
+      margin-top: 16px;
+    }
+  }
+}

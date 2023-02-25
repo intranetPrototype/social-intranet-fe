@@ -1,0 +1,41 @@
+<div class="confirm-registration-default-container">
+  <div class="confirm-registration-default-container-header">
+    <h3>
+      Bitte bestätigen Sie Ihre Registrierung, indem Sie auf den Link in der Ihnen zugeschickten Email klicken.
+      Falls Sie diese nicht mehr auffinden können, können Sie sich unten eine erneute Bestätigungsmail zukommen lassen.
+    </h3>
+    <h1>Registrierung bestätigen</h1>
+  </div>
+
+  <div class="confirm-registration-default-container-error" *ngIf="error">
+    <mat-error>
+      Der Link in Ihrer Bestätigungsmail ist ungültig. <br />
+      Geben Sie Ihre Email erneut ein und fordern eine neue Bestätigungsmail an.
+    </mat-error>
+  </div>
+
+  <div class="resend-confirm-registration-form">
+    <form>
+      <mat-form-field [formGroup]="resendConfirmRegistrationForm">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="resendConfirmationEmail">
+        <mat-error *ngIf="resendConfirmRegistrationControl.hasError('required')">Bitte geben Sie Ihre E-Mail
+          an.</mat-error>
+        <mat-error *ngIf="resendConfirmRegistrationControl.hasError('email')">
+          Bitte geben Sie Ihre E-Mail im richtigen Format an.
+        </mat-error>
+        <mat-hint class="resend-confirm-registration-form-submit" *ngIf="!hideResendHint">
+          Es wurde erneut eine Bestätigungsmail an {{ resendConfirmRegistrationControl.value }} gesendet.
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-error *ngIf="error">{{ error.error.message }}</mat-error>
+    </form>
+    <div class="resend-confirm-registration-form-footer">
+      <button mat-flat-button color="primary" (click)="resendConfirmRegistration()"
+        [disabled]="resendConfirmRegistrationForm.invalid">
+        Erneut senden
+      </button>
+    </div>
+  </div>
+</div>
