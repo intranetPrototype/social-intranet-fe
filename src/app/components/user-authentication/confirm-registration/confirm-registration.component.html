@@ -1,0 +1,14 @@
+<div class="confirm-registration-container" *ngrxLet="error$; let error">
+  <div class="confirm-registration-container-inner" [class.confirm-registration-error]="error">
+    <ng-container *ngIf="!(isRedirect || error)">
+      <app-confirm-registration-success></app-confirm-registration-success>
+    </ng-container>
+
+    <ng-container *ngIf="isRedirect || error">
+      <app-confirm-registration-default [error]="error" 
+                                        [resendConfirmRegistrationForm]="resendConfirmRegistrationForm"
+                                        [resendConfirmRegistrationControl]="resendConfirmRegistrationControl" 
+                                        (resendConfirmRegistrationEmit)="resendConfirmRegistration()"></app-confirm-registration-default>
+    </ng-container>
+  </div>
+</div>

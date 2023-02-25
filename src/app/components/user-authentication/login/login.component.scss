@@ -1,0 +1,38 @@
+.login-container {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+
+  .login-form-container {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 10px;
+    height: auto;
+    padding: 32px;
+    width: 400px;
+
+    &-header {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        color: lightgray;
+      }
+    }
+
+    form {
+      margin: 16px 0 32px 0;
+
+      mat-form-field {
+        width: 100%;
+      }
+    }
+
+    &-footer {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

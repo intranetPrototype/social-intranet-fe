@@ -1,0 +1,21 @@
+.confirm-registration-success-container {
+  &-header {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    mat-icon {
+      color: #ff4081;
+      font-size: 100px;
+      height: auto;
+      width: auto;
+    }
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: end;
+  }
+}
+

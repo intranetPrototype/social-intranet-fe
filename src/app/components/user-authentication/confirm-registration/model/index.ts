@@ -1,0 +1,1 @@
+export * from './resend-confirm-registration-form';
