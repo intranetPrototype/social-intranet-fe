@@ -1,16 +1,14 @@
 .login-container {
   align-items: center;
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 256px);
   justify-content: center;
 
   .login-form-container {
-    background-color: white;
-    border: 1px solid gray;
     border-radius: 10px;
     height: auto;
     padding: 32px;
-    width: 400px;
+    width: 500px !important;
 
     &-header {
       align-items: center;

@@ -1,5 +1,5 @@
 <div class="login-container" *ngrxLet="error$; let error">
-  <div class="login-form-container">
+  <mat-card class="login-form-container">
     <div class="login-form-container-header">
       <h3>Bitte melden Sie sich an oder registrieren Sie sich.</h3>
       <h1>Anmeldung</h1>
@@ -31,5 +31,5 @@
       </ng-container>
       <button mat-flat-button color="primary" (click)="signin()" [disabled]="loginForm.invalid">Login</button>
     </div>
-  </div>
+  </mat-card>
 </div>
