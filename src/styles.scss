@@ -1,12 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./styles/mixins";
 
-html, body {
+html,
+body {
+  background-color: #e2e4e6;
   min-height: 100vh;
 }
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
+
+  .base-container {
+    padding: 0 64px;
+
+    @include md {
+      padding: 0 16px;
+    }
+  }
 }
 
 // Input-field background

@@ -27,6 +27,7 @@ import {
 } from './action';
 import { Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
+import { LoginStatusService } from 'src/app/core/services';
 
 @Injectable()
 export class UserAuthenticationEffects {
@@ -34,7 +35,8 @@ export class UserAuthenticationEffects {
   constructor(
     private readonly router: Router,
     private readonly actions$: Actions,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly loginStatusService: LoginStatusService
   ) { }
 
   signupUser$ = createEffect(() => {
@@ -53,6 +55,8 @@ export class UserAuthenticationEffects {
             map(tokens => {
               localStorage.setItem('access_token', tokens.access_token);
               localStorage.setItem('refresh_token', tokens.refresh_token);
+
+              this.loginStatusService.setIsUserLoggedIn(true);
 
               this.router.navigate(['/main']);
 
@@ -77,6 +81,8 @@ export class UserAuthenticationEffects {
           tap(tokens => {
             localStorage.setItem('access_token', tokens.access_token);
             localStorage.setItem('refresh_token', tokens.refresh_token);
+
+            this.loginStatusService.setIsUserLoggedIn(true);
           }),
           switchMap(tokens => this.authService.getUser().pipe(
             map(user => {
@@ -143,6 +149,8 @@ export class UserAuthenticationEffects {
         map(() => {
           localStorage.removeItem('access_token');
           localStorage.removeItem('refresh_token');
+
+          this.loginStatusService.setIsUserLoggedIn(false);
 
           this.router.navigate(['/login']);
 

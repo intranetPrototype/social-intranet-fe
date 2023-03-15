@@ -15,6 +15,7 @@ import { MainComponent } from './components/main/main.component';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { EmailTokenInterceptor } from './core/interceptors/email-token.interceptor';
 import { RefreshTokenInterceptor } from './core/interceptors/refresh-token.interceptor';
+import { LayoutModule } from './components/layout/layout.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,8 @@ import { RefreshTokenInterceptor } from './core/interceptors/refresh-token.inter
   ],
   imports: [
     ApiModule.forRoot({ rootUrl: environment.baseApiUrl }),
+
+    LayoutModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
