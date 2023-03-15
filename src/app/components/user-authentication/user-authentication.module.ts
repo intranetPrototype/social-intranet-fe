@@ -6,6 +6,7 @@ import { UserAuthenticationRoutingModule } from './user-authentication-routing.m
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { UserAuthenticationEffects } from './store/user-authentication.effects';
@@ -34,10 +35,11 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ReactiveFormsModule,
     UserAuthenticationRoutingModule,
 
+    MatCardModule,
     MatIconModule,
     MatInputModule,
     MatButtonModule,
-    
+
     LetModule,
     EffectsModule.forFeature([UserAuthenticationEffects]),
     StoreModule.forFeature('user-authentication', UserAuthenticationReducer)
