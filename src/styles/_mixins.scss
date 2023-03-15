@@ -1,0 +1,21 @@
+@import "./breakpoints";
+
+// Medium devices
+@mixin md {
+  @media (max-width: #{$screen-md-max}) {
+    @content;
+  }
+}
+
+// Large devices
+@mixin lg {
+  @media (max-width: #{$screen-lg-max}) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: #{$screen-lg-max}) {
+    @content;
+  }
+}
