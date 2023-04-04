@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, tap } from 'rxjs';
 import { LoginStatusService } from '../services';
 
@@ -6,6 +6,8 @@ import { LoginStatusService } from '../services';
   selector: '[loggedIn]'
 })
 export class LoggedInDirective implements OnInit, OnDestroy {
+
+  @Input('loggedIn') screenBreakpoint?: string;
 
   private subscription: Subscription;
 
@@ -18,12 +20,18 @@ export class LoggedInDirective implements OnInit, OnDestroy {
     this.subscription = this.loginStatusService.getIsUserLoggedIn().pipe(
       tap(isUserLoggedIn => {
         if (isUserLoggedIn) {
-          this.elementRef.nativeElement.style.display = 'inline';
+          if (Number(this.screenBreakpoint) && window.innerWidth < Number(this.screenBreakpoint)) {
+            this.elementRef.nativeElement.style.visibility = 'hidden';
+
+            return;
+          }
+
+          this.elementRef.nativeElement.style.visibility = 'visible';
 
           return;
         }
 
-        this.elementRef.nativeElement.style.display = 'none';
+        this.elementRef.nativeElement.style.visibility = 'hidden';
       })
     ).subscribe();
   }

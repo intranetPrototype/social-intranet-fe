@@ -19,21 +19,12 @@ mat-toolbar {
     }
 
     .navbar-icons-container {
-      align-items: center;
-      display: flex;
-
-
       mat-icon {
-        display: none;
-
-        @include lg {
-          cursor: pointer;
-          display: inline;
-          font-size: 28px;
-          height: auto;
-          margin-right: 16px;
-          width: auto;
-        }
+        cursor: pointer;
+        font-size: 28px;
+        height: auto;
+        margin-right: 16px;
+        width: auto;
       }
 
       .navbar-profile-container {
@@ -47,10 +38,6 @@ mat-toolbar {
 
   .small-navbar-container {
     display: none;
-
-    @include xl {
-      display: none;
-    }
 
     navbar-search {
       width: 100%;

@@ -16,6 +16,7 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { EmailTokenInterceptor } from './core/interceptors/email-token.interceptor';
 import { RefreshTokenInterceptor } from './core/interceptors/refresh-token.interceptor';
 import { LayoutModule } from './components/layout/layout.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [

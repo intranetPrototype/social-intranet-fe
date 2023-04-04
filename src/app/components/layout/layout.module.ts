@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarSearchComponent } from './navbar/navbar-search/navbar-search.component';
 import { CoreModule } from 'src/app/core/core.module';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -14,6 +14,7 @@ import { CoreModule } from 'src/app/core/core.module';
     NavbarSearchComponent
   ],
   imports: [
+    FlexLayoutModule,
     CoreModule,
     CommonModule,
     MatIconModule,
