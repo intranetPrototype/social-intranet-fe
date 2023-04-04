@@ -2,10 +2,11 @@
   <mat-toolbar-row>
     <img src="assets/logo.png" />
 
-    <navbar-search class="large-navbar-search" loggedIn></navbar-search>
+    <navbar-search class="large-navbar-search" loggedIn="1280"></navbar-search>
 
-    <div class="navbar-icons-container" loggedIn>
-      <mat-icon (click)="toggleSmallNavbar()">search</mat-icon>
+    <div class="navbar-icons-container" loggedIn fxLayout fxLayoutGap="16px" fxLayoutAlign="center center">
+      <mat-icon (click)="toggleSmallNavbar()" fxHide.gt-md>search</mat-icon>
+      <mat-icon (click)="logout()">logout</mat-icon>
       <div class="navbar-profile-container"></div>
     </div>
   </mat-toolbar-row>
