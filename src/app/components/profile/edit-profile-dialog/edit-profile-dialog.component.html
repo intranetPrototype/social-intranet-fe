@@ -1,0 +1,57 @@
+<div class="edit-profile-dialog-container">
+  <h3>Profil bearbeiten</h3>
+
+  <div class="edit-profile-dialog-close-icon-container">
+    <mat-icon (click)="closeEditProfileDialog()">close</mat-icon>
+  </div>
+
+  <form class="edit-profile-dialog-form" fxLayout="column">
+    <h4>Persönliche Daten</h4>
+
+    <div fxLayout fxLayoutGap="16px">
+      <mat-form-field fxFlex>
+        <mat-label>Vorname</mat-label>
+        <input matInput>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <mat-label>Nachname</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Geburtsdatum</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-hint>DD.MM.YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <h4>Wohnort</h4>
+
+    <mat-form-field>
+      <mat-label>Straße und Hausnummer</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <div fxLayout fxLayoutGap="32px">
+      <mat-form-field fxFlex="20">
+        <mat-label>PLZ</mat-label>
+        <input matInput>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <mat-label>Stadt</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </div>
+
+    <h4>Sonstiges</h4>
+
+    <mat-form-field>
+      <mat-label>Beschreibung</mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>
+  </form>
+</div>

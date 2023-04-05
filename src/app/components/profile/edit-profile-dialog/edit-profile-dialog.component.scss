@@ -1,0 +1,31 @@
+.edit-profile-dialog-container {
+  width: 80vw;
+
+  h3 {
+    border-bottom: 1px solid black;
+    font-size: 24px;
+    font-weight: lighter;
+    text-align: center;
+    padding: 16px 0;
+  }
+
+  .edit-profile-dialog-close-icon-container {
+    cursor: pointer;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+  }
+
+  .edit-profile-dialog-form {
+    padding: 0 32px;
+
+    h4 {
+      font-weight: bold;
+      margin-top: 32px;
+    }
+
+    textarea {
+      height: 128px;
+    }
+  }
+}

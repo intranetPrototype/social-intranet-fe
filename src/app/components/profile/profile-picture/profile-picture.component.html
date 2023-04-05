@@ -1,0 +1,15 @@
+<div class="profile-picture-container" fxLayout fxLayoutGap="64px">
+  <div class="profile-picture-wrapper">
+    <div class="profile-picture" fxLayout fxLayoutAlign="end end">
+      <mat-icon>photo_camera</mat-icon>
+    </div>
+  </div>
+
+  <div class="profile-picture-action-container" fxLayout="row" fxLayoutAlign="space-between">
+    <div fxLayout="column">
+      <h3>John Doe</h3>
+      <span>133 Follower</span>
+    </div>
+    <button mat-raised-button (click)="openEditProfileDialog()" color="primary">Profil bearbeiten</button>
+  </div>
+</div>

@@ -17,6 +17,8 @@ import { EmailTokenInterceptor } from './core/interceptors/email-token.intercept
 import { RefreshTokenInterceptor } from './core/interceptors/refresh-token.interceptor';
 import { LayoutModule } from './components/layout/layout.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { DateAdapter } from '@angular/material/core';
+import { GermanDateAdapter } from './core/adapters';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: EmailTokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: EmailTokenInterceptor, multi: true },
+    { provide: DateAdapter, useClass: GermanDateAdapter }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,42 @@
+.profile-picture-container {
+  width: 100%;
+
+  .profile-picture-wrapper {
+    background-color: white;
+    border-radius: 100%;
+    cursor: pointer;
+    height: 192px;
+    padding: 8px;
+    width: 192px;
+
+    .profile-picture {
+      border-radius: 100%;
+      background-color: lightgray;
+      height: 100%;
+      padding-right: 24px;
+      width: 100%;
+
+      mat-icon {
+        background: white;
+        border-radius: 100%;
+        padding: 8px;
+      }
+    }
+  }
+
+  .profile-picture-action-container {
+    margin-top: 112px;
+    width: calc(100% - 256px);
+
+    h3 {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    span {
+      color: gray;
+      font-style: italic;
+    }
+  }
+}
