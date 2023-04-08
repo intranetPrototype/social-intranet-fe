@@ -1,7 +1,7 @@
 @import "../../../../styles/mixins";
 
 mat-toolbar {
-  margin-bottom: 64px;
+  // margin-bottom: 64px;
 
   mat-toolbar-row {
     align-items: center;
@@ -30,6 +30,7 @@ mat-toolbar {
       .navbar-profile-container {
         background-color: gray;
         border-radius: 100%;
+        cursor: pointer;
         height: 48px;
         width: 48px;
       }

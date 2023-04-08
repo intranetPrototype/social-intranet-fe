@@ -7,7 +7,7 @@
     <div class="navbar-icons-container" loggedIn fxLayout fxLayoutGap="16px" fxLayoutAlign="center center">
       <mat-icon (click)="toggleSmallNavbar()" fxHide.gt-md>search</mat-icon>
       <mat-icon (click)="logout()">logout</mat-icon>
-      <div class="navbar-profile-container"></div>
+      <div class="navbar-profile-container" [routerLink]="['/profile']"></div>
     </div>
   </mat-toolbar-row>
 
