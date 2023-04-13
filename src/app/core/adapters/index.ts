@@ -1,1 +1,1 @@
-export * from './germante-date-adapter';
+export * from './german-date-adapter';
