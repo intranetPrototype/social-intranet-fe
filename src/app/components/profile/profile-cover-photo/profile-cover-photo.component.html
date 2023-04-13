@@ -1,3 +1,9 @@
-<div class="profile-cover-photo-container" fxLayout fxLayoutAlign="end end">
-  <button mat-raised-button>Titelbild bearbeiten</button>
-</div>
+<ng-container *ngrxLet="coverPhoto$ as coverPhoto">
+
+  <div class="profile-cover-photo-container" fxLayout fxLayoutAlign="end end">
+    <img *ngIf="coverPhoto" [src]="coverPhoto" />
+
+    <input type="file" class="cover-photo-upload" (change)="onCoverPhotoSelected($event)" #coverPhotoUpload />
+    <button mat-raised-button (click)="coverPhotoUpload.click()">Titelbild bearbeiten</button>
+  </div>
+</ng-container>

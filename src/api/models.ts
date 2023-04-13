@@ -5,3 +5,7 @@ export { SigninUserRequest } from './models/signin-user-request';
 export { UpdateUserEmailRequest } from './models/update-user-email-request';
 export { SendUpdatePasswordMailRequest } from './models/send-update-password-mail-request';
 export { UpdateUserPasswordRequest } from './models/update-user-password-request';
+export { Profile } from './models/profile';
+export { UpdateProfileUserDto } from './models/update-profile-user-dto';
+export { UpdateProfileDto } from './models/update-profile-dto';
+export { UpdateProfileRequest } from './models/update-profile-request';

@@ -1,1 +1,784 @@
-{"openapi":"3.0.0","paths":{"/user/{email}":{"get":{"operationId":"getUserByEmail","parameters":[{"name":"email","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"Get user by email response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/User"}}}}},"tags":["Auth"]}},"/user":{"get":{"operationId":"getUser","parameters":[],"responses":{"200":{"description":"Get user by token","content":{"application/json":{"schema":{"$ref":"#/components/schemas/User"}}}}},"tags":["Auth"]}},"/signup":{"post":{"operationId":"signup","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SignupUserRequest"}}}},"responses":{"200":{"description":"Signup user response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Tokens"}}}}},"tags":["Auth"]}},"/signin":{"post":{"operationId":"signin","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SigninUserRequest"}}}},"responses":{"200":{"description":"Signin user response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Tokens"}}}}},"tags":["Auth"]}},"/confirm-registration":{"post":{"operationId":"confirmRegistration","parameters":[],"responses":{"200":{"description":"Confirm user registration","content":{"application/json":{"schema":{"$ref":"#/components/schemas/User"}}}}},"tags":["Auth"]}},"/confirm-registration/{email}":{"post":{"operationId":"resendConfirmationUserRegistration","parameters":[{"name":"email","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":""}},"tags":["Auth"]}},"/logout":{"post":{"operationId":"logout","parameters":[],"responses":{"200":{"description":"Logout user response"}},"tags":["Auth"]}},"/user/email":{"put":{"operationId":"updateEmail","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateUserEmailRequest"}}}},"responses":{"200":{"description":"Update user email response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/User"}}}}},"tags":["Auth"]}},"/user/password":{"post":{"operationId":"sendUpdatePasswordMail","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SendUpdatePasswordMailRequest"}}}},"responses":{"200":{"description":"Send email with token to update password"}},"tags":["Auth"]},"put":{"operationId":"updatePassword","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateUserPasswordRequest"}}}},"responses":{"200":{"description":"Update user password response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/User"}}}}},"tags":["Auth"]}},"/refresh":{"post":{"operationId":"refreshTokens","parameters":[],"responses":{"200":{"description":"Refresh user tokens response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Tokens"}}}}},"tags":["Auth"]}},"/delete/{email}":{"delete":{"operationId":"deleteUser","parameters":[{"name":"email","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"Delete user response (only for admin)"}},"tags":["Auth"]}}},"info":{"title":"Social intranet server","description":"API description of the social intranet server API","version":"0.0-beta","contact":{}},"tags":[],"servers":[],"components":{"schemas":{"User":{"type":"object","properties":{"id":{"type":"number","description":"User id","default":1},"firstName":{"type":"string","description":"User first name","default":"John"},"lastName":{"type":"string","description":"User last name","default":"Doe"},"email":{"type":"string","description":"User email","default":"user@email.de"},"role":{"description":"User roles","default":["STANDARD"],"type":"array","items":{"type":"string"}},"confirmed":{"type":"boolean","description":"Has user confirmed registration","default":false}},"required":["id","firstName","lastName","email","role","confirmed"]},"SignupUserRequest":{"type":"object","properties":{"firstName":{"type":"string","description":"First name of the registered user","default":"John"},"lastName":{"type":"string","description":"Last name of the registered user","default":"Doe"},"email":{"type":"string","description":"Email of the registered user","default":"new-user@email.de"},"password":{"type":"string","description":"Password of the registered user","default":"password"}},"required":["firstName","lastName","email","password"]},"Tokens":{"type":"object","properties":{"access_token":{"type":"string","description":"User access-token","default":"access-token"},"refresh_token":{"type":"string","description":"User refresh-token to get new access-token if expired","default":"refresh-token"}},"required":["access_token","refresh_token"]},"SigninUserRequest":{"type":"object","properties":{"email":{"type":"string","description":"Email of the user who wants to signin","default":"signin-user@email.de"},"password":{"type":"string","description":"Password of the user who wants to signin","default":"password"}},"required":["email","password"]},"UpdateUserEmailRequest":{"type":"object","properties":{"email":{"type":"string","description":"The new updated user email","default":"updated-email@email.de"}},"required":["email"]},"SendUpdatePasswordMailRequest":{"type":"object","properties":{"email":{"type":"string","description":"Email of the user who wants to update password","default":"update-password@email.de"}},"required":["email"]},"UpdateUserPasswordRequest":{"type":"object","properties":{"password":{"type":"string","description":"The new updated user password","default":"updated-password"}},"required":["password"]}}}}
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/user/{email}": {
+      "get": {
+        "operationId": "getUserByEmail",
+        "parameters": [
+          {
+            "name": "email",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get user by email response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/user": {
+      "get": {
+        "operationId": "getUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Get user by token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/signup": {
+      "post": {
+        "operationId": "signup",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignupUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Signup user response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tokens"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/signin": {
+      "post": {
+        "operationId": "signin",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SigninUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Signin user response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tokens"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/confirm-registration": {
+      "post": {
+        "operationId": "confirmRegistration",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Confirm user registration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/confirm-registration/{email}": {
+      "post": {
+        "operationId": "resendConfirmationUserRegistration",
+        "parameters": [
+          {
+            "name": "email",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/logout": {
+      "post": {
+        "operationId": "logout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Logout user response"
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/user/email": {
+      "put": {
+        "operationId": "updateEmail",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserEmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update user email response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/user/password": {
+      "post": {
+        "operationId": "sendUpdatePasswordMail",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendUpdatePasswordMailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Send email with token to update password"
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      },
+      "put": {
+        "operationId": "updatePassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update user password response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/refresh": {
+      "post": {
+        "operationId": "refreshTokens",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Refresh user tokens response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tokens"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/delete/{email}": {
+      "delete": {
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "email",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete user response (only for admin)"
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/profile": {
+      "get": {
+        "operationId": "getUserProfile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Get user profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Profile"
+        ]
+      },
+      "put": {
+        "operationId": "updateProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Profile"
+        ]
+      }
+    },
+    "/profile/upload/cover-photo": {
+      "post": {
+        "operationId": "uploadCoverPhoto",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "multipart/form-data",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Upload profile cover-photo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Profile"
+        ]
+      }
+    },
+    "/profile/upload/profile-picture": {
+      "post": {
+        "operationId": "uploadProfilePicture",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "multipart/form-data",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Upload profile profile-picture",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Profile"
+        ]
+      }
+    },
+    "/file-server/{fileName}": {
+      "get": {
+        "operationId": "getFileFromFileServer",
+        "parameters": [
+          {
+            "name": "fileName",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get file from file-server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "FileServer"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Social intranet server",
+    "description": "API description of the social intranet server API",
+    "version": "0.0-beta",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "User id",
+            "default": 1
+          },
+          "firstName": {
+            "type": "string",
+            "description": "User first name",
+            "default": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "User last name",
+            "default": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "default": "user@email.de"
+          },
+          "role": {
+            "description": "User roles",
+            "default": [
+              "STANDARD"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "confirmed": {
+            "type": "boolean",
+            "description": "Has user confirmed registration",
+            "default": false
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "role",
+          "confirmed"
+        ]
+      },
+      "SignupUserRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the registered user",
+            "default": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the registered user",
+            "default": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the registered user",
+            "default": "new-user@email.de"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password of the registered user",
+            "default": "password"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "password"
+        ]
+      },
+      "Tokens": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "User access-token",
+            "default": "access-token"
+          },
+          "refresh_token": {
+            "type": "string",
+            "description": "User refresh-token to get new access-token if expired",
+            "default": "refresh-token"
+          }
+        },
+        "required": [
+          "access_token",
+          "refresh_token"
+        ]
+      },
+      "SigninUserRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email of the user who wants to signin",
+            "default": "signin-user@email.de"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password of the user who wants to signin",
+            "default": "password"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "UpdateUserEmailRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The new updated user email",
+            "default": "updated-email@email.de"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "SendUpdatePasswordMailRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email of the user who wants to update password",
+            "default": "update-password@email.de"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "UpdateUserPasswordRequest": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "The new updated user password",
+            "default": "updated-password"
+          }
+        },
+        "required": [
+          "password"
+        ]
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "description": "User",
+            "default": {
+              "userId": 1,
+              "firstName": "John",
+              "lastName": "Doe",
+              "email": "user@email.de",
+              "role": [
+                "STANDARD"
+              ],
+              "confirmed": true
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/User"
+              }
+            ]
+          },
+          "city": {
+            "type": "string",
+            "description": "City",
+            "default": "Stuttgart"
+          },
+          "userId": {
+            "type": "number",
+            "description": "UserId",
+            "default": 1
+          },
+          "street": {
+            "type": "string",
+            "description": "Street",
+            "default": "Theodor-Heuss-Straße 1"
+          },
+          "birthDate": {
+            "format": "date-time",
+            "type": "string",
+            "description": "",
+            "default": "2023-04-13T14:52:23.016Z"
+          },
+          "postCode": {
+            "type": "string",
+            "description": "PostCode",
+            "default": "70173"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description",
+            "default": "Test Beschreibung"
+          },
+          "coverPhoto": {
+            "type": "string",
+            "description": "Path to cover-photo",
+            "default": "file-server/cover-photo.jpg"
+          },
+          "profilePicture": {
+            "type": "string",
+            "description": "Path to profile-picture",
+            "default": "file-server/profile-picture.jpg"
+          }
+        },
+        "required": [
+          "user",
+          "city",
+          "userId",
+          "street",
+          "birthDate",
+          "postCode",
+          "description",
+          "coverPhoto",
+          "profilePicture"
+        ]
+      },
+      "UpdateProfileUserDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "FirstName",
+            "default": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "FirstName",
+            "default": "Doe"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName"
+        ]
+      },
+      "UpdateProfileDto": {
+        "type": "object",
+        "properties": {
+          "birthDate": {
+            "format": "date-time",
+            "type": "string",
+            "description": "BirthDate",
+            "default": "2023-04-13T14:52:23.008Z"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description",
+            "default": "Test description"
+          },
+          "street": {
+            "type": "string",
+            "description": "Street",
+            "default": "Theodor-Heuss-Straße 1"
+          },
+          "postCode": {
+            "type": "string",
+            "description": "PostCode",
+            "default": "70173"
+          },
+          "city": {
+            "type": "string",
+            "description": "City",
+            "default": "Street"
+          }
+        },
+        "required": [
+          "birthDate",
+          "description",
+          "street",
+          "postCode",
+          "city"
+        ]
+      },
+      "UpdateProfileRequest": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "description": "User",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UpdateProfileUserDto"
+              }
+            ]
+          },
+          "profile": {
+            "description": "Profile",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UpdateProfileDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "user",
+          "profile"
+        ]
+      }
+    }
+  }
+}
