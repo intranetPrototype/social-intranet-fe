@@ -41,8 +41,9 @@ export class AuthService extends BaseService {
    */
   getUserByEmail$Response(params: {
     email: string;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<User>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.GetUserByEmailPath, 'get');
@@ -53,7 +54,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -63,18 +64,19 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getUserByEmail$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   getUserByEmail(params: {
     email: string;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<User> {
 
-    return this.getUserByEmail$Response(params).pipe(
+    return this.getUserByEmail$Response(params,context).pipe(
       map((r: StrictHttpResponse<User>) => r.body as User)
     );
   }
@@ -91,8 +93,9 @@ export class AuthService extends BaseService {
    * This method doesn't expect any request body.
    */
   getUser$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<User>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.GetUserPath, 'get');
@@ -102,7 +105,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -112,17 +115,18 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `getUser$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   getUser(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<User> {
 
-    return this.getUser$Response(params).pipe(
+    return this.getUser$Response(params,context).pipe(
       map((r: StrictHttpResponse<User>) => r.body as User)
     );
   }
@@ -139,9 +143,10 @@ export class AuthService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   signup$Response(params: {
-    context?: HttpContext
     body: SignupUserRequest
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Tokens>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.SignupPath, 'post');
@@ -152,7 +157,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -162,18 +167,19 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `signup$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   signup(params: {
-    context?: HttpContext
     body: SignupUserRequest
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Tokens> {
 
-    return this.signup$Response(params).pipe(
+    return this.signup$Response(params,context).pipe(
       map((r: StrictHttpResponse<Tokens>) => r.body as Tokens)
     );
   }
@@ -190,9 +196,10 @@ export class AuthService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   signin$Response(params: {
-    context?: HttpContext
     body: SigninUserRequest
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Tokens>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.SigninPath, 'post');
@@ -203,7 +210,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -213,18 +220,19 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `signin$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   signin(params: {
-    context?: HttpContext
     body: SigninUserRequest
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Tokens> {
 
-    return this.signin$Response(params).pipe(
+    return this.signin$Response(params,context).pipe(
       map((r: StrictHttpResponse<Tokens>) => r.body as Tokens)
     );
   }
@@ -241,8 +249,9 @@ export class AuthService extends BaseService {
    * This method doesn't expect any request body.
    */
   confirmRegistration$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<User>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.ConfirmRegistrationPath, 'post');
@@ -252,7 +261,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -262,17 +271,18 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `confirmRegistration$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   confirmRegistration(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<User> {
 
-    return this.confirmRegistration$Response(params).pipe(
+    return this.confirmRegistration$Response(params,context).pipe(
       map((r: StrictHttpResponse<User>) => r.body as User)
     );
   }
@@ -290,8 +300,9 @@ export class AuthService extends BaseService {
    */
   resendConfirmationUserRegistration$Response(params: {
     email: string;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.ResendConfirmationUserRegistrationPath, 'post');
@@ -302,7 +313,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'text',
       accept: '*/*',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -312,18 +323,19 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `resendConfirmationUserRegistration$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   resendConfirmationUserRegistration(params: {
     email: string;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<void> {
 
-    return this.resendConfirmationUserRegistration$Response(params).pipe(
+    return this.resendConfirmationUserRegistration$Response(params,context).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
@@ -340,8 +352,9 @@ export class AuthService extends BaseService {
    * This method doesn't expect any request body.
    */
   logout$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.LogoutPath, 'post');
@@ -351,7 +364,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'text',
       accept: '*/*',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -361,17 +374,18 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `logout$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   logout(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<void> {
 
-    return this.logout$Response(params).pipe(
+    return this.logout$Response(params,context).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
@@ -388,9 +402,10 @@ export class AuthService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   updateEmail$Response(params: {
-    context?: HttpContext
     body: UpdateUserEmailRequest
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<User>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.UpdateEmailPath, 'put');
@@ -401,7 +416,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -411,18 +426,19 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `updateEmail$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   updateEmail(params: {
-    context?: HttpContext
     body: UpdateUserEmailRequest
-  }
+  },
+  context?: HttpContext
+
 ): Observable<User> {
 
-    return this.updateEmail$Response(params).pipe(
+    return this.updateEmail$Response(params,context).pipe(
       map((r: StrictHttpResponse<User>) => r.body as User)
     );
   }
@@ -439,9 +455,10 @@ export class AuthService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   updatePassword$Response(params: {
-    context?: HttpContext
     body: UpdateUserPasswordRequest
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<User>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.UpdatePasswordPath, 'put');
@@ -452,7 +469,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -462,18 +479,19 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `updatePassword$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   updatePassword(params: {
-    context?: HttpContext
     body: UpdateUserPasswordRequest
-  }
+  },
+  context?: HttpContext
+
 ): Observable<User> {
 
-    return this.updatePassword$Response(params).pipe(
+    return this.updatePassword$Response(params,context).pipe(
       map((r: StrictHttpResponse<User>) => r.body as User)
     );
   }
@@ -490,9 +508,10 @@ export class AuthService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   sendUpdatePasswordMail$Response(params: {
-    context?: HttpContext
     body: SendUpdatePasswordMailRequest
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.SendUpdatePasswordMailPath, 'post');
@@ -503,7 +522,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'text',
       accept: '*/*',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -513,18 +532,19 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `sendUpdatePasswordMail$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   sendUpdatePasswordMail(params: {
-    context?: HttpContext
     body: SendUpdatePasswordMailRequest
-  }
+  },
+  context?: HttpContext
+
 ): Observable<void> {
 
-    return this.sendUpdatePasswordMail$Response(params).pipe(
+    return this.sendUpdatePasswordMail$Response(params,context).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
@@ -541,8 +561,9 @@ export class AuthService extends BaseService {
    * This method doesn't expect any request body.
    */
   refreshTokens$Response(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<Tokens>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.RefreshTokensPath, 'post');
@@ -552,7 +573,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -562,17 +583,18 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `refreshTokens$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   refreshTokens(params?: {
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<Tokens> {
 
-    return this.refreshTokens$Response(params).pipe(
+    return this.refreshTokens$Response(params,context).pipe(
       map((r: StrictHttpResponse<Tokens>) => r.body as Tokens)
     );
   }
@@ -590,8 +612,9 @@ export class AuthService extends BaseService {
    */
   deleteUser$Response(params: {
     email: string;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthService.DeleteUserPath, 'delete');
@@ -602,7 +625,7 @@ export class AuthService extends BaseService {
     return this.http.request(rb.build({
       responseType: 'text',
       accept: '*/*',
-      context: params?.context
+      context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -612,18 +635,19 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `deleteUser$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   deleteUser(params: {
     email: string;
-    context?: HttpContext
-  }
+  },
+  context?: HttpContext
+
 ): Observable<void> {
 
-    return this.deleteUser$Response(params).pipe(
+    return this.deleteUser$Response(params,context).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
