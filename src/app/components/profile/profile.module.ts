@@ -14,6 +14,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { EffectsModule } from '@ngrx/effects';
+import { ProfileEffects } from './store/profile.effects';
+import { StoreModule } from '@ngrx/store';
+import { ProfileReducer } from './store/profile.reducer';
+import { LetModule } from '@ngrx/component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileDescriptionComponent } from './profile-description/profile-description.component';
+import { ProfileFollowerComponent } from './profile-follower/profile-follower.component';
+import { ProfileNewsComponent } from './profile-news/profile-news.component';
 
 @NgModule({
   declarations: [
@@ -21,10 +30,14 @@ import { MatNativeDateModule } from '@angular/material/core';
     ProfileCoverPhotoComponent,
     ProfileHeaderComponent,
     ProfilePictureComponent,
-    EditProfileDialogComponent
+    EditProfileDialogComponent,
+    ProfileDescriptionComponent,
+    ProfileFollowerComponent,
+    ProfileNewsComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     ProfileRoutingModule,
 
     MatCardModule,
@@ -34,7 +47,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     FlexLayoutModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+
+    LetModule,
+    EffectsModule.forFeature([ProfileEffects]),
+    StoreModule.forFeature('profile', ProfileReducer)
   ]
 })
 export class ProfileModule { }

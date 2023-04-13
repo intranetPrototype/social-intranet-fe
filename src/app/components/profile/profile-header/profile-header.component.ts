@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Profile } from 'src/api/models';
 
 @Component({
   selector: 'profile-header',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile-header.component.scss']
 })
 export class ProfileHeaderComponent {
+
+  @Input() profile: Profile | undefined;
 
 }
