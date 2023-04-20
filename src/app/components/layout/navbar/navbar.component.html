@@ -1,17 +1,27 @@
-<mat-toolbar class="base-container">
-  <mat-toolbar-row>
-    <img src="assets/logo.png" />
+<div>
+  <mat-toolbar class="base-container">
+    <mat-toolbar-row>
+      <img src="assets/logo.png" />
 
-    <navbar-search class="large-navbar-search" loggedIn="1280"></navbar-search>
+      <navbar-search (searchProfilesEvent)="searchProfiles($event)" class="large-navbar-search"
+        loggedIn="1280"></navbar-search>
 
-    <div class="navbar-icons-container" loggedIn fxLayout fxLayoutGap="16px" fxLayoutAlign="center center">
-      <mat-icon (click)="toggleSmallNavbar()" fxHide.gt-md>search</mat-icon>
-      <mat-icon (click)="logout()">logout</mat-icon>
-      <div class="navbar-profile-container" [routerLink]="['/profile']"></div>
+      <div class="navbar-icons-container" loggedIn fxLayout fxLayoutGap="16px" fxLayoutAlign="center center">
+        <mat-icon (click)="toggleSmallNavbar()" fxHide.gt-md>search</mat-icon>
+        <mat-icon (click)="logout()">logout</mat-icon>
+        <div class="navbar-profile-container" [routerLink]="['/profile']"></div>
+      </div>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row class="small-navbar-container" [class.show-small-navbar]="showSmallNavbar">
+      <navbar-search (searchProfilesEvent)="searchProfiles($event)"></navbar-search>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="base-container search-profiles-wrapper" *ngrxLet="searchProfiles$ as searchProfiles">
+    <div class="navbar-profile-search" *ngIf="searchProfiles.length > 0">
+      <navbar-search-profiles *ngFor="let searchProfile of searchProfiles"
+        [searchProfile]="searchProfile"></navbar-search-profiles>
     </div>
-  </mat-toolbar-row>
-
-  <mat-toolbar-row class="small-navbar-container" [class.show-small-navbar]="showSmallNavbar">
-    <navbar-search></navbar-search>
-  </mat-toolbar-row>
-</mat-toolbar>
+  </div>
+</div>

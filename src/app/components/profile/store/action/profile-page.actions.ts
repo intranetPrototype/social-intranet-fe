@@ -6,6 +6,10 @@ export class LoadProfile implements Action {
   readonly type = ProfilePageConstants.LOAD_PROFILE;
   constructor() { }
 }
+export class SearchProfileByFullName implements Action {
+  readonly type = ProfilePageConstants.SEARCH_PROFILE_BY_FULLNAME;
+  constructor(readonly fullName: string) { }
+}
 
 export class UpdateProfile implements Action {
   readonly type = ProfilePageConstants.UPDATE_PROFILE;

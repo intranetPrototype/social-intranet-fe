@@ -11,6 +11,7 @@ export const profileAdapter = createEntityAdapter<Profile>({
 });
 
 export const initialProfileState: ProfileState = profileAdapter.getInitialState({
+  searchProfiles: [],
   coverPhoto: undefined,
   profilePicture: undefined,
   error: undefined
@@ -22,6 +23,10 @@ export function ProfileReducer(state = initialProfileState, action: ProfileApiAc
       return profileAdapter.addOne(action.profile, { ...state, error: undefined });
     case ProfileApiConstants.LOAD_PROFILE_FAILURE:
       return profileAdapter.removeAll({ ...state, error: action.error });
+    case ProfileApiConstants.SEARCH_PROFILE_BY_FULLNAME_SUCCESS:
+      return { ...state, searchProfiles: action.profiles };
+    case ProfileApiConstants.SEARCH_PROFILE_BY_FULLNAME_FAILURE:
+      return { ...state, searchProfiles: [], error: action.error };
 
     case ProfileApiConstants.UPDATE_PROFILE_SUCCESS:
       return profileAdapter.updateOne({ id: action.profile.userId, changes: { ...action.profile } }, state);

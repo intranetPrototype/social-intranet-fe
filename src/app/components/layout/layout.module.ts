@@ -8,20 +8,33 @@ import { NavbarSearchComponent } from './navbar/navbar-search/navbar-search.comp
 import { CoreModule } from 'src/app/core/core.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { ProfileReducer } from '../profile/store/profile.reducer';
+import { ProfileEffects } from '../profile/store/profile.effects';
+import { NavbarSearchProfilesComponent } from './navbar/navbar-search-profiles/navbar-search-profiles.component';
+import { LetModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    NavbarSearchComponent
+    NavbarSearchComponent,
+    NavbarSearchProfilesComponent
   ],
   imports: [
+    LetModule,
     CoreModule,
+    FormsModule,
     RouterModule,
     CommonModule,
     MatIconModule,
     MatInputModule,
     MatToolbarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+
+    EffectsModule.forFeature([ProfileEffects]),
+    StoreModule.forFeature('profile', ProfileReducer)
   ],
   exports: [
     NavbarComponent

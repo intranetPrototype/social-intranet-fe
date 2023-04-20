@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'navbar-search',
@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar-search.component.scss']
 })
 export class NavbarSearchComponent {
+
+  fullNameSearch: string;
+
+  @Output() searchProfilesEvent = new EventEmitter<string>();
+
+  searchProfilesByFullName(fullName: string): void {
+    this.searchProfilesEvent.emit(fullName);
+  }
 
 }

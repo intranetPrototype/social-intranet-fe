@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { Profile, UpdateProfileRequest } from 'src/api/models';
 import { AppState } from 'src/app/model';
 import { Observable, map } from 'rxjs';
-import { LoadCoverPhoto, LoadProfile, LoadProfilePicture, UpdateProfile, UploadCoverPhoto, UploadProfilePicture } from './action';
-import { getCoverPhoto, getProfile, getProfilePicture } from './profile.selectors';
+import { LoadCoverPhoto, LoadProfile, LoadProfilePicture, SearchProfileByFullName, UpdateProfile, UploadCoverPhoto, UploadProfilePicture } from './action';
+import { getCoverPhoto, getProfile, getProfilePicture, getSearchProfiles } from './profile.selectors';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Injectable({
@@ -21,6 +21,10 @@ export class ProfileFacade {
     this.store.dispatch(new LoadProfile());
   }
 
+  searchProfileByFullName(fullName: string): void {
+    this.store.dispatch(new SearchProfileByFullName(fullName));
+  }
+
   loadCoverPhoto(): void {
     this.store.dispatch(new LoadCoverPhoto());
   }
@@ -31,6 +35,10 @@ export class ProfileFacade {
 
   getProfile(): Observable<Profile | undefined> {
     return this.store.select(getProfile);
+  }
+
+  getSearchProfiles(): Observable<Profile[]> {
+    return this.store.select(getSearchProfiles);
   }
 
   getCoverPhoto(): Observable<SafeUrl | undefined> {

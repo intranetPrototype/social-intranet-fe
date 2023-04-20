@@ -1,4 +1,5 @@
 export const LOAD_PROFILE = '[ProfilePage] Load profile';
+export const SEARCH_PROFILE_BY_FULLNAME = '[ProfilePage] Search profile by fullname';
 
 export const UPDATE_PROFILE = '[ProfilePage] Update profile';
 

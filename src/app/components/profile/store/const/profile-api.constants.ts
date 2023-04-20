@@ -1,5 +1,7 @@
 export const LOAD_PROFILE_SUCCESS = '[ProfileApi] Load profile (Success)';
 export const LOAD_PROFILE_FAILURE = '[ProfileApi] Load profile (Failure)';
+export const SEARCH_PROFILE_BY_FULLNAME_SUCCESS = '[ProfileApi] Search profile by fullname (Success)';
+export const SEARCH_PROFILE_BY_FULLNAME_FAILURE = '[ProfileApi] Search profile by fullname (Failure)';
 
 export const UPDATE_PROFILE_SUCCESS = '[ProfileApi] Update profile (Success)';
 export const UPDATE_PROFILE_FAILURE = '[ProfileApi] Update profile (Failure)';

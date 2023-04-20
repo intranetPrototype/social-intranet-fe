@@ -127,6 +127,59 @@ export class ProfileService extends BaseService {
   }
 
   /**
+   * Path part for operation searchUserProfile
+   */
+  static readonly SearchUserProfilePath = '/profile/search';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `searchUserProfile()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  searchUserProfile$Response(params: {
+    searchString: string;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<any>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ProfileService.SearchUserProfilePath, 'get');
+    if (params) {
+      rb.query('searchString', params.searchString, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<any>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `searchUserProfile$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  searchUserProfile(params: {
+    searchString: string;
+  },
+  context?: HttpContext
+
+): Observable<Array<any>> {
+
+    return this.searchUserProfile$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<any>>) => r.body as Array<any>)
+    );
+  }
+
+  /**
    * Path part for operation uploadCoverPhoto
    */
   static readonly UploadCoverPhotoPath = '/profile/upload/cover-photo';

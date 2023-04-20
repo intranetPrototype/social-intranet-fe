@@ -49,9 +49,7 @@ import { ProfileNewsComponent } from './profile-news/profile-news.component';
     MatDatepickerModule,
     MatNativeDateModule,
 
-    LetModule,
-    EffectsModule.forFeature([ProfileEffects]),
-    StoreModule.forFeature('profile', ProfileReducer)
+    LetModule
   ]
 })
 export class ProfileModule { }

@@ -350,6 +350,36 @@
         ]
       }
     },
+    "/profile/search": {
+      "get": {
+        "operationId": "searchUserProfile",
+        "parameters": [
+          {
+            "name": "searchString",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profiles searched by fullName",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Profile"
+        ]
+      }
+    },
     "/profile/upload/cover-photo": {
       "post": {
         "operationId": "uploadCoverPhoto",
@@ -445,6 +475,36 @@
                 "schema": {
                   "type": "string",
                   "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "FileServer"
+        ]
+      }
+    },
+    "/file-server/profile-pictures": {
+      "post": {
+        "operationId": "getProfilePictures",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Get profile pictures of search profiles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "number"
+                    },
+                    "profilePicture": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
                 }
               }
             }
@@ -662,7 +722,7 @@
             "format": "date-time",
             "type": "string",
             "description": "",
-            "default": "2023-04-13T14:52:23.016Z"
+            "default": "2023-04-20T20:40:34.479Z"
           },
           "postCode": {
             "type": "string",
@@ -723,7 +783,7 @@
             "format": "date-time",
             "type": "string",
             "description": "BirthDate",
-            "default": "2023-04-13T14:52:23.008Z"
+            "default": "2023-04-20T20:40:34.475Z"
           },
           "description": {
             "type": "string",

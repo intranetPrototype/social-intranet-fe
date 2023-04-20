@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { FileServerService, ProfileService } from 'src/api/services';
 import { ProfilePageConstants } from './const';
 import { switchMap, map, catchError, of } from 'rxjs';
-import { LoadCoverPhotoFailure, LoadCoverPhotoSuccess, LoadProfileFailure, LoadProfilePictureFailure, LoadProfilePictureSuccess, LoadProfileSuccess, UpdateProfile, UpdateProfileFailure, UpdateProfileSuccess, UploadCoverPhoto, UploadCoverPhotoFailure, UploadCoverPhotoSuccess, UploadProfilePicture, UploadProfilePictureFailure, UploadProfilePictureSuccess } from './action';
+import { LoadCoverPhotoFailure, LoadCoverPhotoSuccess, LoadProfileFailure, LoadProfilePictureFailure, LoadProfilePictureSuccess, LoadProfileSuccess, SearchProfileByFullName, SearchProfileByFullNameFailure, SearchProfileByFullNameSuccess, UpdateProfile, UpdateProfileFailure, UpdateProfileSuccess, UploadCoverPhoto, UploadCoverPhotoFailure, UploadCoverPhotoSuccess, UploadProfilePicture, UploadProfilePictureFailure, UploadProfilePictureSuccess } from './action';
 import { ProfileFacade } from './profile.facade';
 
 @Injectable()
@@ -34,6 +34,22 @@ export class ProfileEffects {
             return new LoadProfileSuccess(profile);
           }),
           catchError(error => of(new LoadProfileFailure(error)))
+        )
+      })
+    );
+  });
+
+  searchProfileByFullName$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProfilePageConstants.SEARCH_PROFILE_BY_FULLNAME),
+      switchMap((searchProfileByFullNameRequest: SearchProfileByFullName) => {
+        if (!searchProfileByFullNameRequest.fullName) {
+          return of(new SearchProfileByFullNameSuccess([]));
+        }
+
+        return this.profileService.searchUserProfile({ searchString: searchProfileByFullNameRequest.fullName }).pipe(
+          map(profiles => new SearchProfileByFullNameSuccess(profiles)),
+          catchError(error => of(new SearchProfileByFullNameFailure(error)))
         )
       })
     );

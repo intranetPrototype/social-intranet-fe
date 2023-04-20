@@ -5,6 +5,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 
 
 export type ProfileApiActions = LoadProfileSuccess | LoadProfileFailure
+  | SearchProfileByFullNameSuccess | SearchProfileByFullNameFailure
   | UpdateProfileSuccess | UpdateProfileFailure
   | LoadCoverPhotoSuccess | LoadCoverPhotoFailure
   | LoadProfilePictureSuccess | LoadProfilePictureFailure
@@ -17,6 +18,14 @@ export class LoadProfileSuccess implements Action {
 }
 export class LoadProfileFailure implements Action {
   readonly type = ProfileApiConstants.LOAD_PROFILE_FAILURE;
+  constructor(readonly error: HttpErrorResponse) { }
+}
+export class SearchProfileByFullNameSuccess implements Action {
+  readonly type = ProfileApiConstants.SEARCH_PROFILE_BY_FULLNAME_SUCCESS;
+  constructor(readonly profiles: Profile[]) { }
+}
+export class SearchProfileByFullNameFailure implements Action {
+  readonly type = ProfileApiConstants.SEARCH_PROFILE_BY_FULLNAME_FAILURE;
   constructor(readonly error: HttpErrorResponse) { }
 }
 

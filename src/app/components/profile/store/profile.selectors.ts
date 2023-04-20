@@ -8,6 +8,10 @@ export const getProfile = createSelector(
   profileState,
   state => state?.ids.map(id => state.entities[id])[0]
 );
+export const getSearchProfiles = createSelector(
+  profileState,
+  state => state.searchProfiles
+);
 
 export const getCoverPhoto = createSelector(
   profileState,
